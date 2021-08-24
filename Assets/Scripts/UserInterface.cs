@@ -18,6 +18,10 @@ public class UserInterface : MonoBehaviour
     [SerializeField] GameObject pointsCounter;
     [SerializeField] GameObject controlsButtonText;
 
+
+    [SerializeField] string mouseControlText;
+    [SerializeField] string keyboardControlText;
+
     public enum States { BeforePlay, Play, Pause, Dead };
     public States state;
 
@@ -51,7 +55,7 @@ public class UserInterface : MonoBehaviour
         if (restart)
         {
             ChangeState(States.Play);
-            controlsButtonText.GetComponent<TextMeshProUGUI>().text = "Управление: Клавиатура";
+            controlsButtonText.GetComponent<TextMeshProUGUI>().text = keyboardControlText;
             restart = false;
         }
         else
@@ -80,11 +84,11 @@ public class UserInterface : MonoBehaviour
         {
             if (mouseControls == false)
             {
-                controlsButtonText.GetComponent<TextMeshProUGUI>().text = "Управление: WAD/Space";
+                controlsButtonText.GetComponent<TextMeshProUGUI>().text = keyboardControlText;
             }
             else
             {
-                controlsButtonText.GetComponent<TextMeshProUGUI>().text = "Управление: ЛКМ/ПКМ";
+                controlsButtonText.GetComponent<TextMeshProUGUI>().text = mouseControlText;
             }
         }
         else
@@ -92,12 +96,12 @@ public class UserInterface : MonoBehaviour
             if (mouseControls == true)
             {
                 mouseControls = false;
-                controlsButtonText.GetComponent<TextMeshProUGUI>().text = "Управление: WAD/Space";
+                controlsButtonText.GetComponent<TextMeshProUGUI>().text = keyboardControlText;
             }
             else
             {
                 mouseControls = true;
-                controlsButtonText.GetComponent<TextMeshProUGUI>().text = "Управление: ЛКМ/ПКМ";
+                controlsButtonText.GetComponent<TextMeshProUGUI>().text = mouseControlText;
             }
         }
     }

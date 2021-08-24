@@ -826,6 +826,7 @@ MonoBehaviour:
     type: 3}
   minAlienSpawnTime: 20
   maxAlienSpawnTime: 40
+  currentAsteroidsQuantity: 0
 --- !u!1 &684496192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,6 +1962,10 @@ MonoBehaviour:
   livesCounter: {fileID: 2035927635}
   pointsCounter: {fileID: 481626536}
   controlsButtonText: {fileID: 398421495}
+  mouseControlText: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435:
+    \u041F\u041A\u041C/\u041B\u041A\u041C"
+  keyboardControlText: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435:
+    WAD/Space"
   state: 0
 --- !u!1 &1081708460
 GameObject:

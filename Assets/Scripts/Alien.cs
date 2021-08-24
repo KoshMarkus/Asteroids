@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Alien : Shooter, ILootableObject, IDestroyableObject
+public class Alien : Shooter
 {
     [SerializeField] int priceForAHead;
+
+    [SerializeField] float minReload;
+    [SerializeField] float maxReload;
 
     private Vector3 startPosition;
     private Vector3 destination;
@@ -30,35 +33,44 @@ public class Alien : Shooter, ILootableObject, IDestroyableObject
 
         bulletSpawn.rotation = Quaternion.LookRotation(Vector3.forward, Player.Instance.transform.position - transform.position);
 
-        Shooting(bulletSpawn);;
-        reloadTime = Random.Range(2.0f, 5.0f);
+        Shooting(bulletSpawn);
 
         if (transform.position == destination)
         {
-            Destroyed();
+            Destroy(gameObject);
         }
+    }
+
+    protected override void Shooting(Transform rotationSource)
+    {
+        reloadTime = Random.Range(minReload, maxReload);
+
+        base.Shooting(rotationSource);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerBullet"))
         {
-            other.gameObject.GetComponent<IDestroyableObject>().Destroyed();
+            if (destroyedSound)
+            {
+                AudioCenter.Instance.PlaySound(destroyedSound);
+            }
+
+            other.gameObject.SetActive(false);
             Loot();
-            Destroyed();
+            Destroy(gameObject);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroyed();
+        Destroy(gameObject);
     }
 
-    override public void Destroyed()
+    private void OnDestroy()
     {
-        AudioCenter.Instance.PlaySound(destroyedSound);
         ObjectSpawner.Instance.AlienDied();
-        Destroy(gameObject);
     }
 
     public void Loot()

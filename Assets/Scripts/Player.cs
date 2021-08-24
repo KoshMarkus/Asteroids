@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : Shooter, IDestroyableObject
+public class Player : Shooter
 {
     [SerializeField] float accelerationSpeed;
     [SerializeField] float maxAcceleration;
@@ -106,10 +106,10 @@ public class Player : Shooter, IDestroyableObject
     {
         if (other.CompareTag("AlienBullet"))
         {
-            other.GetComponent<IDestroyableObject>().Destroyed();
+            other.gameObject.SetActive(false);
             Crash();
         }
-        else if (other.CompareTag("Asteroid"))
+        else if (other.CompareTag("Asteroid") || other.CompareTag("Alien"))
         {
             Crash();
         }
@@ -117,6 +117,11 @@ public class Player : Shooter, IDestroyableObject
 
     void Crash()
     {
+        if (destroyedSound)
+        {
+            AudioCenter.Instance.PlaySound(destroyedSound);
+        }
+
         --lives;
 
         AudioCenter.Instance.PlaySound(destroyedSound);
@@ -132,7 +137,8 @@ public class Player : Shooter, IDestroyableObject
         }
         else
         {
-            Destroyed();
+            UserInterface.Instance.ShowDeathPrompt();
+            gameObject.SetActive(false);
         }
     }
 
@@ -143,12 +149,6 @@ public class Player : Shooter, IDestroyableObject
         yield return new WaitForSeconds(3f);
         rb.detectCollisions = true;
         anim.SetBool("Invincible", false);
-    }
-
-    public override void Destroyed()
-    {
-        UserInterface.Instance.ShowDeathPrompt();
-        gameObject.SetActive(false);
     }
 
     public void MorePoints(int points)

@@ -4,17 +4,14 @@ using TMPro;
 
 public class ObjectSpawner : MonoBehaviour
 {
-
     [SerializeField] int nextQuantityOfAsteroids;
-
     [SerializeField] GameObject alienPrefab;
     [SerializeField] float minAlienSpawnTime;
     [SerializeField] float maxAlienSpawnTime;
 
     private bool asteroidsSpawning = false;
-    private int currentAsteroidsQuantity;
+    public int currentAsteroidsQuantity;
 
-    private bool alienSpawning = false;
     private bool isThereAnAlien;
     private float alienSpawnRate;
 
@@ -32,7 +29,7 @@ public class ObjectSpawner : MonoBehaviour
             StartCoroutine(SpawnAsteroids());
         }
 
-        if (!isThereAnAlien && !alienSpawning)
+        if (!isThereAnAlien)
         {
             StartCoroutine(SpawnAlien());
         }
@@ -77,7 +74,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private IEnumerator SpawnAlien()
     {
-        alienSpawning = true;
+        isThereAnAlien = true;
 
         alienSpawnRate = Random.Range(minAlienSpawnTime, maxAlienSpawnTime);
 
@@ -87,10 +84,6 @@ public class ObjectSpawner : MonoBehaviour
 
         GameObject alienShip = Instantiate(alienPrefab, alienPosition , Quaternion.identity);
         alienShip.GetComponent<Alien>().SetPath(alienPosition);
-
-        isThereAnAlien = true;
-
-        alienSpawning = false;
     }
 
     private IEnumerator SpawnAsteroids()
@@ -101,6 +94,7 @@ public class ObjectSpawner : MonoBehaviour
 
         for (int i = 0; i < nextQuantityOfAsteroids; i++)
         {
+
             GameObject asteroid = ObjectPooler.Instance.SpawnFromPool("Asteroids", Camera.main.ViewportToWorldPoint(RollRandomEdgePosition(0.0f, 0.1f, false)) - Camera.main.transform.position, Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f)));
             asteroid.GetComponent<Asteroid>().PushSetup(0);
         }

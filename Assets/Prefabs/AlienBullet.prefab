@@ -81,6 +81,7 @@ MonoBehaviour:
   playerBulletMaterial: {fileID: 2100000, guid: 72c57dae741aeb1458a0f9b50a4f9faa,
     type: 2}
   alienBulletMaterial: {fileID: 2100000, guid: f7ac7540c872b654c8352d00d3237ce0, type: 2}
+  speed: 200
   currentDistance: 0
 --- !u!1 &5794485816676058807
 GameObject:

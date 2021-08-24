@@ -1,43 +1,36 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : ScreenWrappingObject, IPooledObject, IDestroyableObject
+public class Bullet : ScreenWrappingObject
 {
     [SerializeField] Material playerBulletMaterial;
     [SerializeField] Material alienBulletMaterial;
+
+    [SerializeField] float speed;
 
     private bool isFired;
 
     [SerializeField] float currentDistance;
 
-    private GameObject originPoint;
+    private Vector3 originPosition;
 
-    public void OnSpawnFromPool()
+
+    public void OnEnable()
     {
-        CreateOriginPoint();
         isFired = false;
-    }
-
-    virtual public void CreateOriginPoint()
-    {
-        if (!originPoint)
-        {
-            originPoint = new GameObject();
-            originPoint.name = gameObject.name + " origin point";
-        }
+        originPosition = transform.position;
     }
 
     protected override void FixedUpdate()
     {
-        viewportPosition = cam.WorldToViewportPoint(transform.position);
-        WrappingAround();
+        base.FixedUpdate();
 
-        currentDistance = Vector3.Distance(originPoint.transform.position, transform.position);
+        currentDistance = Vector3.Distance(originPosition, transform.position);
 
         if (currentDistance > cam.ViewportToWorldPoint(new Vector3(1f, 0, 0)).x * 2)
         {
-            Destroyed();
+            gameObject.SetActive(false);
         }
 
         if (!isFired)
@@ -58,7 +51,7 @@ public class Bullet : ScreenWrappingObject, IPooledObject, IDestroyableObject
             }
 
             rb.velocity = new Vector3(0, 0, 0);
-            rb.AddForce(transform.up.x*200, transform.up.y*200, 0);
+            rb.AddForce(transform.up*speed);
 
             isFired = true;
         }
@@ -71,33 +64,27 @@ public class Bullet : ScreenWrappingObject, IPooledObject, IDestroyableObject
         if (viewportPosition.x > 1)
         {
             newPosition.x = cam.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
-            originPoint.transform.position += newPosition * 2;
+            originPosition += newPosition * 2;
         }
 
         if (viewportPosition.y > 1)
         {
             newPosition.y = cam.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
-            originPoint.transform.position += newPosition * 2;
+            originPosition += newPosition * 2;
         }
 
         if (viewportPosition.x < 0)
         {
             newPosition.x = cam.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
-            originPoint.transform.position += newPosition * 2;
+            originPosition += newPosition * 2;
         }
 
         if (viewportPosition.y < 0)
         {
             newPosition.y = cam.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
-            originPoint.transform.position += newPosition * 2;
+            originPosition += newPosition * 2;
         }
 
         transform.position = newPosition;
-    }
-
-    public override void Destroyed()
-    {
-        Destroy(originPoint);
-        gameObject.SetActive(false);
     }
 }

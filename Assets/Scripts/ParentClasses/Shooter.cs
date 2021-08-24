@@ -12,7 +12,7 @@ public class Shooter : ScreenWrappingObject
 
     [SerializeField] AudioClip fireSound;
 
-    protected void Shooting(Transform rotationSource)
+    virtual protected void Shooting(Transform rotationSource)
     {
         if (canShoot)
         {

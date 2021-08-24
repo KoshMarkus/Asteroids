@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenWrappingObject : MonoBehaviour, IDestroyableObject
+public class ScreenWrappingObject : MonoBehaviour
 {
     protected Camera cam;
     protected Rigidbody rb;
@@ -47,15 +47,5 @@ public class ScreenWrappingObject : MonoBehaviour, IDestroyableObject
         }
 
         transform.position = newPosition;
-    }
-
-    virtual public void Destroyed()
-    {
-        if (destroyedSound)
-        {
-            AudioCenter.Instance.PlaySound(destroyedSound);
-        }
-        
-        gameObject.SetActive(false);
     }
 }

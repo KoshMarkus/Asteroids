@@ -345,10 +345,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyedSound: {fileID: 8300000, guid: 3c44e283ff596a24fbbb7a34af1f6af1, type: 3}
   viewportPosition: {x: 0, y: 0, z: 0}
-  timesBroken: 0
   BreakAngle: 45
   minSpeed: 40
   maxSpeed: 80
+  bigAsteroidReward: 20
+  mediumAsteroidReward: 50
+  smallAsteroidReward: 100
+  timesBroken: 0
+  wasPushed: 0
 --- !u!135 &7067497832970312167
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -360,7 +364,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.8952204
+  m_Radius: 0.895
   m_Center: {x: -0.19999996, y: -0.113539934, z: 0}
 --- !u!1 &7013504643482202846
 GameObject:

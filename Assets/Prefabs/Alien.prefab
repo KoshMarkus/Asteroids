@@ -417,7 +417,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7959843182313489325}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.32151628
@@ -441,6 +441,8 @@ MonoBehaviour:
   reloadTime: 3.3
   fireSound: {fileID: 8300000, guid: a3c1ff4dd94e14748accdcde39e5acaa, type: 3}
   priceForAHead: 200
+  minReload: 2
+  maxReload: 5
   timeToReachOtherSideOfScreen: 10
 --- !u!1 &8228010001265424195
 GameObject:

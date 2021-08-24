@@ -76,11 +76,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7ea3f20f70b7b47b4d72f322c9d48e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyedSound: {fileID: 0}
   viewportPosition: {x: 0, y: 0, z: 0}
-  originPoint: {fileID: 0}
   playerBulletMaterial: {fileID: 2100000, guid: 72c57dae741aeb1458a0f9b50a4f9faa,
     type: 2}
   alienBulletMaterial: {fileID: 2100000, guid: f7ac7540c872b654c8352d00d3237ce0, type: 2}
+  speed: 200
   currentDistance: 0
 --- !u!1 &5794485816676058807
 GameObject:
