@@ -1,3 +1,3 @@
 # Asteroids
  
-Аналог игры Asteroids Atari 1979
+Analogue of the game Asteroids Atari 1979
